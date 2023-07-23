@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FileName;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 
@@ -26,10 +27,14 @@ class FileUploadController extends Controller
     public function store(Request $request)
     {
         if ($request->hasFile('file')) {
-            $file = $request->file('file');
+            $fileToUpload = $request->file('file');
 
-            if ($this->fileUploadService->storeFile("test", $file)) { //TODO: After finishing the upload for each file there should be a record in the DB with the original name, hashed name, generated random link, password protected (boolean - premium API), opened at
-                return response()->json(['message' => 'File uploaded successfully.']);
+           //TODO: After finishing the upload for each file there should be a record in the DB with the original name, hashed name, generated random link, password protected (boolean - premium API), opened at
+
+            if ($this->fileUploadService->storeFile("test", $fileToUpload)) {
+                $fileNameObj = new FileName($fileToUpload);
+                //TODO: [Igor->Bojan] write to db
+                return response()->json(['message' => $fileNameObj->getAllNamesAsArray()], 200);
             };
         }
 
