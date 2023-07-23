@@ -19,7 +19,6 @@ class FileUploadController extends Controller
         $this->fileUploadService = $fileUploadService;
     }
 
-
     /**
      * Show the form for creating a new resource.
      */
