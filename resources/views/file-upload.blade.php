@@ -3,13 +3,30 @@
 <html>
 <head>
     <title>File Upload with Progress</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
 <body>
-<form action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
-    @csrf
-    <input type="file" name="file">
-    <button type="submit">Upload</button>
-</form>
+
+<div class="upload-page">
+    <div class="inside">
+        <form class="upload-form" action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
+            <label class="upload-label" for="file">
+                <img class="upload-icon" src="{{asset('icons/up.svg')}}" alt="Upload">
+                <p class="upload-text">Attach files here</p>
+            </label>
+
+            @csrf
+            <input type="file" name="file" id="file" multiple>
+            <div class="button-row">
+                <button class="button-default" type="submit">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div id="progress" style="display: none;">
     <div id="bar" style="width: 0%; background-color: green;">0%</div>
