@@ -2,11 +2,21 @@
 
 namespace App\Services\Implementation;
 
+use App\Models\FileName;
+use App\Repositories\FileModelRepository;
+use App\Services\FileUploadService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class FileUploadServiceImplementation implements \App\Services\FileUploadService
+class FileUploadServiceImplementation implements FileUploadService
 {
+    private readonly FileModelRepository $fileModelRepository;
+
+    public function __construct(FileModelRepository $fileModelRepository)
+    {
+        $this->fileModelRepository = $fileModelRepository;
+    }
+
     /**
      * Uploading files to AWS S3 Bucket
      * @param string $folderName Folder name where filed should be stored
@@ -20,6 +30,10 @@ class FileUploadServiceImplementation implements \App\Services\FileUploadService
         if (!$storagePutFile) {
             return false;
         }
+
+        $fileNameObj = new FileName($file, $folderName);
+        $this->fileModelRepository->store($fileNameObj);
+
         return true;
     }
 }
