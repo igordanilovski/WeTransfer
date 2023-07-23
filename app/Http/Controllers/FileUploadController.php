@@ -32,11 +32,8 @@ class FileUploadController extends Controller
         if ($request->hasFile('file')) {
             $fileToUpload = $request->file('file');
 
-            //TODO: After finishing the upload for each file there should be a record in the DB with the original name, hashed name, generated random link, password protected (boolean - premium API), opened at
-
             if ($this->fileUploadService->storeFile("test", $fileToUpload)) {
-                $fileNameObj = new FileName($fileToUpload);
-                //TODO: [Igor->Bojan] write to db
+                $fileNameObj = new FileName($fileToUpload, "test"); //TODO: Sredi go ova da ide od funkcijava gadno e vaka
                 return response()->json(['message' => $fileNameObj->getAllNamesAsArray()], 200);
             }
         }
