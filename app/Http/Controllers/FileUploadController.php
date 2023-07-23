@@ -38,7 +38,7 @@ class FileUploadController extends Controller
                 $fileNameObj = new FileName($fileToUpload);
                 //TODO: [Igor->Bojan] write to db
                 return response()->json(['message' => $fileNameObj->getAllNamesAsArray()], 200);
-            };
+            }
         }
 
         return response()->json(['message' => 'No file found.'], 400);
