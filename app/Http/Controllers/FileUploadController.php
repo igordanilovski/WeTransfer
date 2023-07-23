@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\FileName;
 use App\Services\FileUploadService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class FileUploadController extends Controller
@@ -19,12 +23,12 @@ class FileUploadController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('file-upload');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         if ($request->hasFile('file')) {
             $fileToUpload = $request->file('file');
