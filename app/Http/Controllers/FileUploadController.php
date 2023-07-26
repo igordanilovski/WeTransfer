@@ -29,12 +29,15 @@ class FileUploadController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        if ($request->hasFile('file')) {
-            $fileToUpload = $request->file('file');
-
-            if ($this->fileUploadService->storeFile("test", $fileToUpload)) {
-                $fileNameObj = new FileName($fileToUpload, "test"); //TODO: Sredi go ova da ide od funkcijava gadno e vaka
-                return response()->json(['message' => $fileNameObj->getAllNamesAsArray()], 200);
+        if ($request->hasFile('files')) {
+            $filesToUpload = $request->file('files');
+            //dd($filesToUpload);
+            foreach ($filesToUpload as $fileToUpload) {
+                if ($this->fileUploadService->storeFile("test", $fileToUpload)) {
+                    $fileNameObj = new FileName($fileToUpload, "test"); //TODO: Sredi go ova da ide od funkcijava gadno e vaka
+                    //TODO: [Igor->Bojan] Well, this is shitty a little bit. Leave it to me i will find a way.
+                    //return response()->json(['message' => $fileNameObj->getAllNamesAsArray()], 200);
+                }
             }
         }
 

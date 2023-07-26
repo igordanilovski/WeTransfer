@@ -14,13 +14,13 @@
 <div class="upload-page">
     <div class="inside">
         <form class="upload-form" action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
-            <label class="upload-label" for="file">
+            <label class="upload-label" for="files">
                 <img class="upload-icon" src="{{asset('icons/up.svg')}}" alt="Upload">
                 <p class="upload-text">Attach files here</p>
             </label>
 
             @csrf
-            <input type="file" name="file" id="file" multiple>
+            <input type="file" name="files[]" id="files" multiple>
             <div class="button-row">
                 <button class="button-default" type="submit">Upload</button>
             </div>
