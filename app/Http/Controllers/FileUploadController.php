@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FileName;
 use App\Repositories\LinkModelRepository;
 use App\Services\FileUploadService;
+use App\Services\LinkService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -14,12 +15,14 @@ use Illuminate\Http\Request;
 class FileUploadController extends Controller
 {
     private FileUploadService $fileUploadService;
-    private LinkModelRepository $linkModelRepository;
+    private LinkModelRepository $linkModelRepository; //Znam deka e tupo vaka repository u controller i ako tolku ti smeta kazi ke napraam service
+    private LinkService $linkService;
 
-    public function __construct(FileUploadService $fileUploadService, LinkModelRepository $linkModelRepository)
+    public function __construct(FileUploadService $fileUploadService, LinkModelRepository $linkModelRepository, \App\Services\LinkService $linkService)
     {
         $this->fileUploadService = $fileUploadService;
         $this->linkModelRepository = $linkModelRepository;
+        $this->linkService = $linkService;
     }
 
     /**
@@ -39,14 +42,18 @@ class FileUploadController extends Controller
             $filesToUpload = $request->file('files');
             //dd($filesToUpload);
             foreach ($filesToUpload as $fileToUpload) {
-                if ($this->fileUploadService->storeFile("test", $fileToUpload, $linkModel)) {
-                    $fileNameObj = new FileName($fileToUpload, "test"); //TODO: Sredi go ova da ide od funkcijava gadno e vaka
-                    //TODO: [Igor->Bojan] Well, this is shitty a little bit. Leave it to me i will find a way.
-                    //return response()->json(['message' => $fileNameObj->getAllNamesAsArray()], 200);
+                if (!$this->fileUploadService->storeFile("test", $fileToUpload, $linkModel)) {
+                    return response()->json(['message' => 'No file found.'], 400);
                 }
             }
-        }
 
+            //TODO: [Bojan->Igor] Ne go cepkaj pri kraj sum so toa od komentiranoto ama nemav vreme da dovrsam poso ke me cekase vo Kapri :))
+            return response()->json(['message' => $linkModel->slug], 200);
+            //return response()->json(['message' => $this->linkService->getFilesBySlug($linkModel->slug)], 200);
+        }
         return response()->json(['message' => 'No file found.'], 400);
+
+
+
     }
 }

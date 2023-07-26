@@ -23,6 +23,10 @@ class FileModelRepository
         return $fileToSave->save();
     }
 
-
+    public function getFilesByLinkId($linkId)
+    {
+        return FileModel::all()
+            ->where("link_id", $linkId);
+    }
 
 }
