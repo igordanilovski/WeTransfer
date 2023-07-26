@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FileModel extends Model
 {
@@ -20,4 +21,9 @@ class FileModel extends Model
         'extension',
         'opened_at'
     ];
+
+    public function link(): BelongsTo
+    {
+        return $this->belongsTo(LinkModel::class);
+    }
 }

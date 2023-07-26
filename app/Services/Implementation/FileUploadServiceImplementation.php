@@ -3,6 +3,7 @@
 namespace App\Services\Implementation;
 
 use App\Models\FileName;
+use App\Models\LinkModel;
 use App\Repositories\FileModelRepository;
 use App\Services\FileUploadService;
 use Illuminate\Http\UploadedFile;
@@ -21,9 +22,10 @@ class FileUploadServiceImplementation implements FileUploadService
      * Uploading files to AWS S3 Bucket
      * @param string $folderName Folder name where filed should be stored
      * @param UploadedFile $file
+     * @param LinkModel $linkModel
      * @return bool Returns boolean if file is successfully stored or not.
      */
-    public function storeFile(string $folderName, UploadedFile $file): bool
+    public function storeFile(string $folderName, UploadedFile $file, LinkModel $linkModel): bool
     {
         $storagePutFile = Storage::disk("s3")->putFile($folderName, $file);
 
@@ -32,7 +34,7 @@ class FileUploadServiceImplementation implements FileUploadService
         }
 
         $fileNameObj = new FileName($file, $folderName);
-        $this->fileModelRepository->store($fileNameObj);
+        $this->fileModelRepository->store($fileNameObj, $linkModel);
 
         return true;
     }
