@@ -13,13 +13,30 @@ class FileName
 
     /**
      * @param UploadedFile $file
+     * @param string $folder
      */
-    public function __construct(UploadedFile $file, string $folder)
+    public function __construct(UploadedFile $file = null, string $folder = null)
     {
-        $this->originalName = $file->getClientOriginalName();
-        $this->hashName = $file->hashName();
-        $this->extension = $file->extension();
-        $this->folder = $folder;
+        if($file != null && $folder != null){
+            $this->originalName = $file->getClientOriginalName();
+            $this->hashName = $file->hashName();
+            $this->extension = $file->extension();
+            $this->folder = $folder;
+        }
+        else{
+            $this->originalName = "default";
+            $this->hashName = "default";
+            $this->extension = "default";
+            $this->folder = "default";
+        }
+    }
+
+    public function populateProperties(FileModel $model)
+    {
+        $this->originalName = $model->original_name;
+        $this->hashName = $model->hashed_name;
+        $this->extension = $model->extension;
+        $this->folder = $model->folder;
     }
 
     /**
@@ -64,6 +81,38 @@ class FileName
     public function getFolder(): string
     {
         return $this->folder;
+    }
+
+    /**
+     * @param string $originalName
+     */
+    public function setOriginalName(string $originalName): void
+    {
+        $this->originalName = $originalName;
+    }
+
+    /**
+     * @param string $hashName
+     */
+    public function setHashName(string $hashName): void
+    {
+        $this->hashName = $hashName;
+    }
+
+    /**
+     * @param string $extension
+     */
+    public function setExtension(string $extension): void
+    {
+        $this->extension = $extension;
+    }
+
+    /**
+     * @param string $folder
+     */
+    public function setFolder(string $folder): void
+    {
+        $this->folder = $folder;
     }
 
 

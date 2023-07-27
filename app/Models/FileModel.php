@@ -19,7 +19,6 @@ class FileModel extends Model
         'slug',
         'folder',
         'extension',
-        'opened_at'
     ];
 
     public function link(): BelongsTo

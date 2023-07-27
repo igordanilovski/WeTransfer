@@ -32,12 +32,14 @@ class LinkServiceImpl implements LinkService
         $fileNameVar = [];
 
         foreach ($files as $file){
-            $tempFileName = new FileName($file, "test");
+            $tempFileName = new FileName();
+            $tempFileName->populateProperties($file);
 
-            $fileNameVar[] = $tempFileName;
+            $fileNameVar[] = $tempFileName->getAllNamesAsArray();
         }
 
-        dd($fileNameVar);
+        //dd($fileNameVar);
+
         return $fileNameVar;
     }
 }

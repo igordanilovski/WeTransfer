@@ -42,14 +42,14 @@ class FileUploadController extends Controller
             $filesToUpload = $request->file('files');
             //dd($filesToUpload);
             foreach ($filesToUpload as $fileToUpload) {
+                //TODO:Do not create the link if the files aren't stored successfully
                 if (!$this->fileUploadService->storeFile("test", $fileToUpload, $linkModel)) {
                     return response()->json(['message' => 'No file found.'], 400);
                 }
             }
 
-            //TODO: [Bojan->Igor] Ne go cepkaj pri kraj sum so toa od komentiranoto ama nemav vreme da dovrsam poso ke me cekase vo Kapri :))
-            return response()->json(['message' => $linkModel->slug], 200);
-            //return response()->json(['message' => $this->linkService->getFilesBySlug($linkModel->slug)], 200);
+            $result = $this->linkService->getFilesBySlug($linkModel->slug);
+            return response()->json(['message' => $result], 200);
         }
         return response()->json(['message' => 'No file found.'], 400);
 
