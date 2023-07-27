@@ -40,11 +40,14 @@ html, body {
 }
 
 .upload-text {
-    margin-left: 4px;
-    color: #FFF;
+    color: #FFFFFF;
 }
 
 .button-row {
+    display: none;
+}
+
+.button-row.visible {
     display: flex;
 }
 
@@ -59,4 +62,31 @@ html, body {
     padding: 12px 30px;
     border-radius: 8px;
     margin: auto;
+}
+
+.files-box {
+    display: none;
+    background-color: #1f1f1f;
+    margin: auto;
+    max-width: 500px;
+    width: 100%;
+    padding: 8px 18px;
+    border-radius: 12px;
+}
+
+.files-box.visible {
+    display: block;
+}
+
+.file-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.file-box-name, .file-box-size {
+    font-size: 14px;
+    margin: 10px 0;
+    color: #CECECE;
 }
