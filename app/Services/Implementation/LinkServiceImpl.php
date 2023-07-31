@@ -38,8 +38,6 @@ class LinkServiceImpl implements LinkService
             $fileNameVar[] = $tempFileName->getAllNamesAsArray();
         }
 
-        //dd($fileNameVar);
-
         return $fileNameVar;
     }
 }
