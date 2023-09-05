@@ -63,7 +63,7 @@ class FileUploadController extends Controller
         $sizeCounterInBytes = 0;
 
         foreach ($filesToUpload as $fileToUpload) {
-            $sizeCounterInBytes += $fileToUpload->size;
+            $sizeCounterInBytes += $fileToUpload->getSize();
         }
 
         $sizeCounterInMB = $sizeCounterInBytes / (1024 * 1024);

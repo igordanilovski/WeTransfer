@@ -3,6 +3,7 @@
 namespace App\Services\Implementation;
 
 use App\Models\FileName;
+use App\Models\FileUploadDTO;
 use App\Repositories\FileModelRepository;
 use App\Repositories\LinkModelRepository;
 use App\Services\LinkService;
@@ -25,9 +26,9 @@ class LinkServiceImpl implements LinkService
 
     /**
      * @param string $slug
-     * @return array
+     * @return FileUploadDTO
      */
-    public function getFilesBySlug(string $slug): array
+    public function getFilesBySlug(string $slug): FileUploadDTO
     {
         $linkModel = $this->getLinkBySlug($slug);
 
@@ -42,6 +43,7 @@ class LinkServiceImpl implements LinkService
             $fileNameVar[] = $tempFileName->getAllNamesAsArray();
         }
 
-        return $fileNameVar;
+        $result = new FileUploadDTO($linkModel->slug, $fileNameVar);
+        return $result;
     }
 }
