@@ -41,6 +41,11 @@ class FileUploadController extends Controller
 
             $filesToUpload = $request->file('files');
             //dd($filesToUpload);
+
+            if (!$this->validateUploadSize($filesToUpload)){
+                return response()->json(['message' => 'The file/s you upload must be below 25MB.'], 400);
+            }
+
             foreach ($filesToUpload as $fileToUpload) {
                 //TODO:Do not create the link if the files aren't stored successfully
                 if (!$this->fileUploadService->storeFile("test", $fileToUpload, $linkModel)) {
@@ -52,8 +57,19 @@ class FileUploadController extends Controller
             return response()->json(['message' => $result], 200);
         }
         return response()->json(['message' => 'No file found.'], 400);
+    }
 
+    private function validateUploadSize($filesToUpload){
+        $sizeCounterInBytes = 0;
 
+        foreach ($filesToUpload as $fileToUpload) {
+            $sizeCounterInBytes += $fileToUpload->size;
+        }
 
+        $sizeCounterInMB = $sizeCounterInBytes / (1024 * 1024);
+        if ($sizeCounterInMB > 25){
+            return false;
+        }
+        return true;
     }
 }

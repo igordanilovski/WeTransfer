@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Services\LinkService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 
 class LinkController extends Controller
 {
@@ -13,7 +16,11 @@ class LinkController extends Controller
         $this->linkService = $linkService;
     }
 
-    public function findBySlug($slug)
+    /**
+     * @param $slug
+     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+     */
+    public function findBySlug($slug): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $files = $this->linkService->getFilesBySlug($slug);
 

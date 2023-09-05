@@ -23,7 +23,11 @@ class LinkServiceImpl implements LinkService
         return $this->linkModelRepository->findBySlug($slug);
     }
 
-    public function getFilesBySlug(string $slug)
+    /**
+     * @param string $slug
+     * @return array
+     */
+    public function getFilesBySlug(string $slug): array
     {
         $linkModel = $this->getLinkBySlug($slug);
 
