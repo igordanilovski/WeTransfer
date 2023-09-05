@@ -25,7 +25,7 @@ class LinkController extends Controller
         $files = $this->linkService->getFilesBySlug($slug);
 
         //TODO: [Bojan -> Igor] Use the files however u like in the view
-        return view('link-get', ["files" => $files]);
+        return view('link-get', ["result" => $files]);
     }
 
 }
