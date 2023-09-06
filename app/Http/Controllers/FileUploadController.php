@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FileUploadController extends Controller
 {
@@ -30,7 +31,7 @@ class FileUploadController extends Controller
      */
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('file-upload');
+        return view('file-upload')->with("authenticated", Auth::check());
     }
 
     public function store(Request $request): JsonResponse
@@ -42,7 +43,7 @@ class FileUploadController extends Controller
             $filesToUpload = $request->file('files');
             //dd($filesToUpload);
 
-            if (!$this->validateUploadSize($filesToUpload)){
+            if (!$this->validateUploadSize($filesToUpload)) {
                 return response()->json(['message' => 'The file/s you upload must be below 25MB.'], 400);
             }
 
@@ -59,7 +60,8 @@ class FileUploadController extends Controller
         return response()->json(['message' => 'No file found.'], 400);
     }
 
-    private function validateUploadSize($filesToUpload){
+    private function validateUploadSize($filesToUpload)
+    {
         $sizeCounterInBytes = 0;
 
         foreach ($filesToUpload as $fileToUpload) {
@@ -67,7 +69,7 @@ class FileUploadController extends Controller
         }
 
         $sizeCounterInMB = $sizeCounterInBytes / (1024 * 1024);
-        if ($sizeCounterInMB > 25){
+        if ($sizeCounterInMB > 25) {
             return false;
         }
         return true;

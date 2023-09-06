@@ -149,3 +149,26 @@ html, body {
     text-align: center;
     width: 350px;
 }
+
+.expiration-element {
+    text-align: center;
+    display: none;
+}
+
+.expiration-element.visible {
+    display: block;
+}
+
+.expiration-datetime {
+    font-family: 'Montserrat', sans-serif !important;
+    background-color: unset;
+    border: 1px solid #C9C9C9;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #C9C9C9;
+}
+
+.expiration-label {
+    font-size: 12px;
+    color: #FFFFFF;
+}

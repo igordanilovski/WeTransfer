@@ -32,7 +32,18 @@
 
             <div class="files-box mb-4" id="files-box">
 
+
             </div>
+
+            @if($authenticated)
+                <div id="expiration-element" class="expiration-element mb-3">
+                    <div class="inside">
+                        <label class="expiration-label" for="expiration-datetime">Set Expiration Date</label>
+                        <input id="expiration-datetime" name="expiration-datetime" class="expiration-datetime"
+                               type="datetime-local">
+                    </div>
+                </div>
+            @endif
 
             <div class="button-row">
                 <button class="button-default" type="submit">Upload</button>
@@ -48,7 +59,8 @@
                 set for sharing. Get started and collaborate effortlessly!</p>
             <input type="text" id="share-link-input" class="send-input-field mb-3" value="" disabled>
             <div class="button-row">
-                <button id="share-link-button" class="button-default" data-link="test" type="button" onclick="copyToClipboard(this)">Copy to clipboard
+                <button id="share-link-button" class="button-default" data-link="test" type="button"
+                        onclick="copyToClipboard(this)">Copy to clipboard
                 </button>
             </div>
         </div>
@@ -90,7 +102,7 @@
                 document.getElementById("share-link-button").setAttribute("data-link", data.message.link);
             },
             error: function (data) {
-                alert("hu");
+                alert("Error while uploading files");
             },
             complete: function () {
                 $('#progress').hide();
@@ -109,6 +121,7 @@
 
         $(".button-row").addClass("visible");
         $(".files-box").addClass("visible");
+        $(".expiration-element").addClass("visible");
 
         Array.from(files).forEach(file => {
             appendFileBox(file.name, file.size);
