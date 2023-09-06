@@ -69,10 +69,10 @@
                 return xhr;
             },
             success: function (data) {
-                // Handle the success response
+                alert("hu");
             },
             error: function (data) {
-                // Handle the error response
+                alert("hu");
             },
             complete: function () {
                 $('#progress').hide();
