@@ -22,6 +22,14 @@ html, body {
     width: 100%;
 }
 
+#upload-form {
+    display: none;
+}
+
+#upload-form.visible {
+    display: block;
+}
+
 .download-page .inside {
     width: 100%;
     margin: auto;
@@ -101,4 +109,43 @@ html, body {
     font-size: 14px;
     margin: 10px 0;
     color: #CECECE;
+}
+
+.send-box {
+    background-color: #1F1F1F;
+    border-radius: 12px;
+    width: auto;
+    max-width: 768px;
+    margin: auto;
+    text-align: center;
+    padding: 24px;
+    display: none;
+}
+
+.send-box.visible {
+    display: block;
+}
+
+.send-text, .send-text-heading {
+    color: #FFFFFF;
+}
+
+.send-text {
+    opacity: 0.8;
+}
+
+.send-icon {
+    width: 60px;
+    filter: brightness(0) invert(1);
+}
+
+.send-input-field {
+    font-family: 'Montserrat', sans-serif !important;
+    background-color: #2a2a2a;
+    border: 1px solid #C9C9C9;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #C9C9C9;
+    text-align: center;
+    width: 350px;
 }

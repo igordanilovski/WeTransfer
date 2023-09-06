@@ -20,7 +20,8 @@
 <body>
 <div class="upload-page">
     <div class="inside">
-        <form class="upload-form" action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
+        <form id="upload-form" class="upload-form visible" action="{{ route('upload') }}" method="post"
+              enctype="multipart/form-data">
             <label class="upload-label mb-3" for="files">
                 <img class="upload-icon" src="{{asset('icons/up.svg')}}" alt="Upload">
                 <p class="upload-text ms-2 mb-0">Attach files here</p>
@@ -37,6 +38,20 @@
                 <button class="button-default" type="submit">Upload</button>
             </div>
         </form>
+
+        <div class="send-box" id="send-box">
+            <img class="send-icon mb-3" src="{{asset('icons/send.svg')}}" alt="Send">
+            <h4 class="send-text-heading">Share uploaded files with anyone</h4>
+            <p class="send-text">
+                Great news! Your uploaded files are ready and waiting for you. You can now easily share them with anyone
+                by simply clicking on the provided link. Whether it's documents, images, or any other files, they're all
+                set for sharing. Get started and collaborate effortlessly!</p>
+            <input type="text" id="share-link-input" class="send-input-field mb-3" value="" disabled>
+            <div class="button-row">
+                <button id="share-link-button" class="button-default" data-link="test" type="button" onclick="copyToClipboard(this)">Copy to clipboard
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -69,7 +84,10 @@
                 return xhr;
             },
             success: function (data) {
-                alert("hu");
+                document.getElementById("upload-form").classList.remove("visible");
+                document.getElementById("send-box").classList.add("visible");
+                document.getElementById("share-link-input").value = data.message.link;
+                document.getElementById("share-link-button").setAttribute("data-link", data.message.link);
             },
             error: function (data) {
                 alert("hu");
@@ -95,6 +113,29 @@
         Array.from(files).forEach(file => {
             appendFileBox(file.name, file.size);
         });
+    }
+
+    function copyToClipboard(button) {
+        // Get the data-link attribute value from the button
+        var dataLink = button.getAttribute("data-link");
+
+        // Create a temporary input element to copy the value to the clipboard
+        var tempInput = document.createElement("input");
+        tempInput.setAttribute("value", dataLink);
+        document.body.appendChild(tempInput);
+
+        // Select the text inside the input field
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the selected text to the clipboard using the Clipboard API
+        document.execCommand("copy");
+
+        // Remove the temporary input element
+        document.body.removeChild(tempInput);
+
+        // Provide user feedback (you can customize this part)
+        alert("Copied to clipboard: " + dataLink);
     }
 
     function removeAllChildElements(parentElement) {
