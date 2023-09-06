@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('upload', [FileUploadController::class, 'create'])->name('upload');
 Route::get('link/{slug}', [LinkController::class, 'findBySlug']);
+Route::get('download/{slug}', [LinkController::class, 'download']);
 
 Route::post('upload', [FileUploadController::class, 'store'])->name('store');
 

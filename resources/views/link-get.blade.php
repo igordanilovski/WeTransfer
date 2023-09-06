@@ -27,12 +27,24 @@
             @endforeach
         </div>
         <div class="button-row visible">
-
-            <button class="button-default" type="submit">
+            <button class="button-default" type="submit" id="download_button">
                 <img class="icon me-2" src="{{asset('icons/download.svg')}}" alt="Download">
                 <p class="m-0">Download</p>
             </button>
         </div>
     </div>
 </div>
+
+<a id="download-link" style="display: none;"></a>
+
+<script>
+    $(document).ready(function () {
+        $("#download_button").click(function () {
+            var downloadLink = document.getElementById("download-link");
+            downloadLink.href = "http://127.0.0.1:8000/download/{{$slug}}"; // Replace with the actual download link
+            downloadLink.click();
+        });
+    });
+</script>
+
 </html>

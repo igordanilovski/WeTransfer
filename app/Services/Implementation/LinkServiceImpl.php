@@ -7,6 +7,8 @@ use App\Models\FileUploadDTO;
 use App\Repositories\FileModelRepository;
 use App\Repositories\LinkModelRepository;
 use App\Services\LinkService;
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class LinkServiceImpl implements LinkService
 {
@@ -45,5 +47,29 @@ class LinkServiceImpl implements LinkService
 
         $result = new FileUploadDTO($linkModel->slug, $fileNameVar);
         return $result;
+    }
+
+    public function downloadFilesBySlug(string $slug)
+    {
+
+        $linkModel = $this->getLinkBySlug($slug);
+        $files = $this->fileModelRepository->getFilesByLinkId($linkModel->id);
+
+        $zipFilePath = tempnam(sys_get_temp_dir(), 'zip');
+        $zip = new ZipArchive();
+        $zipContents = '';
+
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+
+            foreach ($files as $file){
+                $objectContents = Storage::disk('s3')->get($file->folder . '/' . $file->hashed_name);
+                $zip->addFromString($file->original_name, $objectContents);
+            }
+
+            $zip->close();
+            $zipContents = file_get_contents($zipFilePath);
+        }
+
+        return $zipContents;
     }
 }
