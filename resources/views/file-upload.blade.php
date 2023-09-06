@@ -18,6 +18,15 @@
 </head>
 
 <body>
+<nav class="navbar">
+    <div class="container">
+        <div class="left-part"></div>
+        <div class="right-part">
+            <a href="/register" class="nav-link me-2">Register</a>
+            <a href="/login" class="nav-link">Log In</a>
+        </div>
+    </div>
+</nav>
 <div class="upload-page">
     <div class="inside">
         <form id="upload-form" class="upload-form visible" action="{{ route('upload') }}" method="post"
