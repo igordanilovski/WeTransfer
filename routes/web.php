@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ProfileController;
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
 Route::get('upload', [FileUploadController::class, 'create'])->name('upload');
 Route::get('link/{slug}', [LinkController::class, 'findBySlug']);
 Route::get('download/{slug}', [LinkController::class, 'download']);
+
+Route::get('admin-dashboard', [AdminDashboardController::class, 'index']);
 
 Route::post('upload', [FileUploadController::class, 'store'])->name('store');
 

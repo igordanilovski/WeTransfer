@@ -193,3 +193,8 @@ html, body {
     font-size: 12px;
     color: #FFFFFF;
 }
+
+td, th {
+    background-color: unset !important;
+    vertical-align: middle;
+}
