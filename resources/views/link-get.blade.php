@@ -42,6 +42,12 @@
 @endif
 
 {{--TODO: Da se stavi error ako linkot ne e accessible--}}
+<div class="box-container">
+    <div class="broken-link-box">
+        <img class="mb-2" src="{{asset('icons/info.svg')}}" alt="">
+        <p class="broken-link-text m-0">Sorry, this link is broken or no longer available.</p>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {

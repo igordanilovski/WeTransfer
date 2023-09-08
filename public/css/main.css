@@ -198,3 +198,28 @@ td, th {
     background-color: unset !important;
     vertical-align: middle;
 }
+
+.broken-link-box {
+    background-color: #1F1F1F;
+    border-radius: 12px;
+    width: auto;
+    max-width: 768px;
+    margin: auto;
+    text-align: center;
+    padding: 24px;
+}
+
+.box-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.broken-link-box img {
+    height: 40px;
+    filter: brightness(0) invert(1);
+}
+
+.broken-link-text {
+    color: #FFFFFF;
+}
