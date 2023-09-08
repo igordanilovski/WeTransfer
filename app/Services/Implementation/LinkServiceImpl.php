@@ -7,6 +7,7 @@ use App\Models\FileUploadDTO;
 use App\Repositories\FileModelRepository;
 use App\Repositories\LinkModelRepository;
 use App\Services\LinkService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
@@ -49,7 +50,13 @@ class LinkServiceImpl implements LinkService
         return $result;
     }
 
-    public function downloadFilesBySlug(string $slug)
+
+
+    /**
+     * @param string $slug
+     * @return false|string
+     */
+    public function downloadFilesBySlug(string $slug): bool|string
     {
 
         $linkModel = $this->getLinkBySlug($slug);
@@ -71,5 +78,21 @@ class LinkServiceImpl implements LinkService
         }
 
         return $zipContents;
+    }
+
+    public function getLinksByLoggedUser()
+    {
+        return $this->linkModelRepository->findByUser(Auth::id());
+    }
+
+    /**
+     * @param $slug
+     * @return void
+     */
+    public function openLink($slug): void
+    {
+        $link = self::getLinkBySlug($slug);
+
+        $this->linkModelRepository->incrementTimeOpened($link);
     }
 }

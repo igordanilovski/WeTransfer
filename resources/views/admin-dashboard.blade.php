@@ -39,26 +39,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td></td>
-                <td>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
+            {{--TODO: For each--}}
+            @foreach($links as $link)
+                <tr>
+                    <td>{{$link->slug}}</td>
+                    <td>{{$link->files->count()}}</td>
+                    <td>{{$link->time_opened}}</td>
+                    @if($link->has_expiration)
+                        <td> {{$link->expiration_date}}</td>
+                    @else
+                        <td>Indefinite</td>
+                    @endif
+                    <td>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-primary">Copy</button>
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

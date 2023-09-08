@@ -31,6 +31,8 @@ class LinkController extends Controller
         }
 
         $files = $this->linkService->getFilesBySlug($slug);
+        $this->linkService->openLink($slug);
+
         return view('link-get', ["result" => $files, "slug" => $slug, "accessible" => true]);
     }
 

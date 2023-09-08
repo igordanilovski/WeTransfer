@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FileName;
 use App\Repositories\LinkModelRepository;
 use App\Services\FileUploadService;
 use App\Services\LinkService;
@@ -39,7 +38,7 @@ class FileUploadController extends Controller
         if ($request->hasFile('files')) {
 
 
-            $linkModel = $this->linkModelRepository->store($request['expiration-datetime'], Auth::check());
+            $linkModel = $this->linkModelRepository->store($request['expiration-datetime'], Auth::check(), Auth::user());
 
             $filesToUpload = $request->file('files');
             //dd($filesToUpload);
