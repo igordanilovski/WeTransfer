@@ -38,7 +38,8 @@ class FileUploadController extends Controller
     {
         if ($request->hasFile('files')) {
 
-            $linkModel = $this->linkModelRepository->store();
+
+            $linkModel = $this->linkModelRepository->store($request['expiration-datetime'], Auth::check());
 
             $filesToUpload = $request->file('files');
             //dd($filesToUpload);

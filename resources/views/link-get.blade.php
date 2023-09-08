@@ -19,23 +19,29 @@
 <body>
 </body>
 
-<div class="download-page">
-    <div class="inside">
-        <div class="files-box visible mb-4" id="files-box">
-            @foreach($result->files as $file)
-                <p class="file-box-name">{{ $file["originalName"] }}</p>
-            @endforeach
-        </div>
-        <div class="button-row visible">
-            <button class="button-default" type="submit" id="download_button">
-                <img class="icon me-2" src="{{asset('icons/download.svg')}}" alt="Download">
-                <p class="m-0">Download</p>
-            </button>
+@if($accessible)
+
+    <div class="download-page">
+        <div class="inside">
+            <div class="files-box visible mb-4" id="files-box">
+                @foreach($result->files as $file)
+                    <p class="file-box-name">{{ $file["originalName"] }}</p>
+                @endforeach
+            </div>
+            <div class="button-row visible">
+                <button class="button-default" type="submit" id="download_button">
+                    <img class="icon me-2" src="{{asset('icons/download.svg')}}" alt="Download">
+                    <p class="m-0">Download</p>
+                </button>
+            </div>
         </div>
     </div>
-</div>
 
-<a id="download-link" style="display: none;"></a>
+    <a id="download-link" style="display: none;"></a>
+
+@endif
+
+{{--TODO: Da se stavi error ako linkot ne e accessible--}}
 
 <script>
     $(document).ready(function () {
