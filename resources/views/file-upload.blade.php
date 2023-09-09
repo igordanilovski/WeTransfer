@@ -57,6 +57,9 @@
             <div class="button-row">
                 <button class="button-default" type="submit">Upload</button>
             </div>
+            <div id="progress" class="mt-3 progress-bar" style="display: none;">
+                <div id="bar" style="width: 0%; background-color: #27c499;">0%</div>
+            </div>
         </form>
 
         <div class="send-box" id="send-box">
@@ -74,10 +77,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div id="progress" style="display: none;">
-    <div id="bar" style="width: 0%; background-color: green;">0%</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

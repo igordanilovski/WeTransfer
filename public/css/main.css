@@ -223,3 +223,9 @@ td, th {
 .broken-link-text {
     color: #FFFFFF;
 }
+
+.progress-bar {
+    max-width: 350px;
+    margin: auto;
+    border-radius: 4px;
+}
