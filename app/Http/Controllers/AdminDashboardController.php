@@ -6,6 +6,7 @@ use App\Services\LinkService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 
 class AdminDashboardController extends Controller
 {
@@ -22,5 +23,11 @@ class AdminDashboardController extends Controller
         $links = $this->linkService->getLinksByLoggedUser();
 
         return view("admin-dashboard", ["links" => $links]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
     }
 }

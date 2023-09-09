@@ -29,13 +29,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/admin-dashboard', [AdminDashboardController::class, 'index']);
+    Route::get('/logout', [AdminDashboardController::class, 'logout']);
 });
 
 Route::get('upload', [FileUploadController::class, 'create'])->name('upload');
 Route::get('link/{slug}', [LinkController::class, 'findBySlug']);
 Route::get('download/{slug}', [LinkController::class, 'download']);
 
-Route::get('admin-dashboard', [AdminDashboardController::class, 'index']);
 
 Route::post('upload', [FileUploadController::class, 'store'])->name('store');
 
