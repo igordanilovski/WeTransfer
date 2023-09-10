@@ -62,6 +62,10 @@ class FileUploadController extends Controller
 
     private function validateUploadSize($filesToUpload)
     {
+        if (Auth::check()){
+            return true;
+        }
+
         $sizeCounterInBytes = 0;
 
         foreach ($filesToUpload as $fileToUpload) {
