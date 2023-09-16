@@ -51,7 +51,6 @@
             </tr>
             </thead>
             <tbody>
-            {{--TODO: For each--}}
             @foreach($links as $link)
                 <tr>
                     <td>{{$link->slug}}</td>
@@ -64,7 +63,7 @@
                     @endif
                     <td>
                         <button type="button" class="btn btn-danger">Delete</button>
-                        <button type="button" class="btn btn-primary">Copy</button>
+                        <button type="button" class="btn btn-primary" data-link="http://127.0.0.1:8000/link/{{$link->slug}}" onclick="copyToClipboard(this)">Copy</button>
                     </td>
                 </tr>
             @endforeach
@@ -72,3 +71,32 @@
         </table>
     </div>
 </div>
+<script>
+
+    function copyToClipboard(button) {
+        // Get the data-link attribute value from the button
+        var dataLink = button.getAttribute("data-link");
+        console.log(dataLink);
+
+        // Create a temporary input element to copy the value to the clipboard
+        var tempInput = document.createElement("input");
+        tempInput.setAttribute("value", dataLink);
+        document.body.appendChild(tempInput);
+
+        // Select the text inside the input field
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the selected text to the clipboard using the Clipboard API
+        document.execCommand("copy");
+
+        // Remove the temporary input element
+        document.body.removeChild(tempInput);
+
+        // Provide user feedback (you can customize this part)
+        alert("Copied to clipboard: " + dataLink);
+    }
+</script>
+
+</body>
+</html>
