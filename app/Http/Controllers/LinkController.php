@@ -47,6 +47,12 @@ class LinkController extends Controller
         return $response;
     }
 
+    public function delete($slug){
+        $this->linkService->deleteLinkBySlug($slug);
+
+        return back();
+    }
+
     /**
      * @param $slug
      * @return bool

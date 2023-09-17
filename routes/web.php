@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+//    return view('welcome');
+    return redirect("/upload");
 });
 
 Route::get('/dashboard', function () {
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/admin-dashboard', [AdminDashboardController::class, 'index']);
     Route::get('/logout', [AdminDashboardController::class, 'logout']);
+    Route::get('/delete/{slug}', [LinkController::class, 'delete']);
 });
 
 Route::get('upload', [FileUploadController::class, 'create'])->name('upload');

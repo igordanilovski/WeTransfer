@@ -13,4 +13,6 @@ interface LinkService
     public function openLink($slug);
 
     public function downloadFilesBySlug(string $slug);
+
+    public function deleteLinkBySlug(string $slug);
 }

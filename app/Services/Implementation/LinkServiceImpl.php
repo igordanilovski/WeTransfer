@@ -95,4 +95,12 @@ class LinkServiceImpl implements LinkService
 
         $this->linkModelRepository->incrementTimeOpened($link);
     }
+
+    public function deleteLinkBySlug(string $slug)
+    {
+        $link = self::getLinkBySlug($slug);
+
+        $link->files()->delete();
+        $link->delete();
+    }
 }

@@ -62,7 +62,9 @@
                         <td>Indefinite</td>
                     @endif
                     <td>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <a href="/delete/{{$link->slug}}">
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </a>
                         <button type="button" class="btn btn-primary" data-link="http://127.0.0.1:8000/link/{{$link->slug}}" onclick="copyToClipboard(this)">Copy</button>
                     </td>
                 </tr>

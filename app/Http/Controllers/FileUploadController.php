@@ -41,7 +41,6 @@ class FileUploadController extends Controller
             $linkModel = $this->linkModelRepository->store($request['expiration-datetime'], Auth::check(), Auth::user());
 
             $filesToUpload = $request->file('files');
-            //dd($filesToUpload);
 
             if (!$this->validateUploadSize($filesToUpload)) {
                 return response()->json(['message' => 'The file/s you upload must be below 25MB.'], 400);
@@ -50,7 +49,9 @@ class FileUploadController extends Controller
             foreach ($filesToUpload as $fileToUpload) {
                 //TODO:Do not create the link if the files aren't stored successfully
                 if (!$this->fileUploadService->storeFile("test", $fileToUpload, $linkModel)) {
-                    return response()->json(['message' => 'No file found.'], 400);
+                    $linkModel->files()->delete();
+                    $linkModel->delete();
+                    return response()->json(['message' => 'Error while uploading the files.'], 400);
                 }
             }
 
