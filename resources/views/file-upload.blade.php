@@ -70,6 +70,9 @@
             <div class="button-row">
                 <button class="button-default" type="submit">Upload</button>
             </div>
+            <div id="error-message-box" class="error-message-box mt-3">
+                <p class="error-message-text m-0" id="error-message-text">Error</p>
+            </div>
             <div id="progress" class="mt-3 progress-bar" style="display: none;">
                 <div id="bar" style="width: 0%; background-color: #27c499;">0%</div>
             </div>
@@ -99,6 +102,7 @@
 
         var formData = new FormData($(this)[0]);
         $('#progress').show();
+        document.getElementById("error-message-box").classList.remove("active");
 
         $.ajax({
             url: $(this).attr('action'),
@@ -123,7 +127,8 @@
                 document.getElementById("share-link-button").setAttribute("data-link", data.message.link);
             },
             error: function (data) {
-                alert("Error while uploading files");
+                document.getElementById("error-message-box").classList.add("active");
+                document.getElementById("error-message-text").innerText = data.responseJSON.message;
             },
             complete: function () {
                 $('#progress').hide();

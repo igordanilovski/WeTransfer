@@ -17,8 +17,27 @@
 </head>
 
 <body>
-</body>
+<nav class="navbar">
+    <div class="container">
+        <div class="left-part">
+            <h4 class="m-0 me-4">WeTransfer</h4>
+            <a href="/admin-dashboard" class="m-0 me-2">Dashboard</a>
+            <a href="/upload" class="m-0">Upload</a>
+        </div>
+        @auth
+            <div class="right-part">
+                <a href="/logout" class="nav-link me-2">Log Out</a>
+            </div>
+        @endauth
 
+        @guest
+            <div class="right-part">
+                <a href="/register" class="nav-link me-2">Register</a>
+                <a href="/login" class="nav-link">Log In</a>
+            </div>
+        @endguest
+    </div>
+</nav>
 @if($accessible)
 
     <div class="download-page">
@@ -58,5 +77,5 @@
         });
     });
 </script>
-
+</body>
 </html>
